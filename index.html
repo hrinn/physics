@@ -152,8 +152,8 @@ function calc() {
   vf1 = (((e*m2)*(v2-v1))+(m1*v1)+(m2*v2))/(mt);
   vf2 = (((e*m1)*(v1-v2))+(m1*v1)+(m2*v2))/(mt);
   
-  $("#vf1").text(vf1.toFixed(2));
-  $("#vf2").text(vf2.toFixed(2));
+  $("#vf1").text(vf1.toFixed(2) + " m/s");
+  $("#vf2").text(vf2.toFixed(2) + " m/s");
   
   pf1 = m1 * vf1;
   pf2 = m2 * vf2;
