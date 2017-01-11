@@ -1,9 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
-<title>Physics</title>
+  <titleP>hysics calculator</title>
+      <style>
+      body {
+  margin: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 150%;
+  background: lightblue;
+}
+
+.blank{
+  background: lightgray;
+}
+
+#beforeTable {
+  background: white;
+  float: left;
+  margin-right: 30px;
+}
+
+#afterTable {
+  background: white;
+}
+
+#m1a {
+  height: 46.5px;
+}
+  </style>
 </head>
+
 <body>
-  <p>Physics</p>
+  <div>
+  <div id="tables">
+    <table border="1" cellpadding="5" cellspacing="5" id="beforeTable">
+      <tr>
+        <th>Ground Before</th>
+        <th>Object 1</br>
+          M1 = <input id="m1" size=2/> </th>
+        <th>Object 2</br>
+          M2 = <input id="m2" size=2/></th>
+        <th>Total</th>
+      </tr>
+      <tr>
+        <td>Velocity</td>
+        <td><b>V1 = </b><input id="v1" size=2/></td>
+        <td><b>V2 = </b><input id="v2" size=2/></td>
+        <td class="blank"></td>
+      </tr>
+      <tr>
+        <td>Momentum</td>
+        <td id="p1"></td>
+        <td id="p2"></td>
+        <td id="pt"></td>
+      </tr>
+      <tr>
+        <td>Kinetic Energy</td>
+        <td id="ke1"></td>
+        <td id="ke2"></td>
+        <td id="ket"></td>
+      </tr>
+      <tr>
+        <td>Relative Speed</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td id="rs"></td>
+      </tr>
+    </table>
+
+    <table border="1" cellpadding="5" cellspacing="5" id="afterTable">
+      <tr>
+        <th>Ground After</th>
+        <th id="m1a">Object 1</th>
+        <th id="m2a">Object 2</th>
+        <th>Total</th>
+      </tr>
+      <tr>
+        <td>Velocity</td>
+        <td id="vf1"></td>
+        <td id="vf2"></td>
+        <td class="blank"></td>
+      </tr>
+      <tr>
+        <td>Momentum</td>
+        <td></td>
+        <td></td>
+        <td id="pft"></td>
+      </tr>
+      <tr>
+        <td>Kinetic Energy</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Relative Speed</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td id=></td>
+      </tr>
+    </table>
+  </div>
+  <br>
+  <b> e = </b><input id="e" size="2" />
+  <br>
+<b>V<sub>CoM</sub> = </b> <span id="vcom"></span>
+  <br>
+  <button id="calculate">Calculate</button>
+</div>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script>
+    console.clear();
+$("#calculate").click(calc);
+
+function calc() {
+  var e = $("#e").val() * 1;
+  var m1 = $("#m1").val() * 1;
+  var m2 = $("#m2").val() * 1;
+  var v1 = $("#v1").val() * 1;
+  var v2 = $("#v2").val() * 1;
+
+  p1 = m1 * v1;
+  p2 = m2 * v2;
+  pt = p1 + p2;
+
+  $("#p1").text(p1 + " kg·m/s");
+  $("#p2").text(p2 + " kg·m/s");
+  $("#pt").text(pt + " kg·m/s");
+  $("#pft").text(pt + " kg·m/s")
+  
+  ke1 = (m1/2) * Math.pow(v1,2);
+  ke2 = (m2/2) * Math.pow(v2,2);
+  ket = ke1 + ke2;
+  
+  $("#ke1").text(ke1 + " J");
+  $("#ke2").text(ke2 + " J");
+  $("#ket").text(ket + " J");
+  
+  rs = Math.abs(v2-v1)
+  
+  $("#rs").text(rs + " m/s");
+  
+  $("#m1a").text("M1 = " + m1 + " kg");
+  $("#m2a").text("M2 = " + m2 + " kg");
+  
+  mt = m1+m2;
+  vcom = pt/mt;
+  
+  $("#vcom").text(vcom.toFixed(2) + " m/s");
+  
+  console.log(e, m1, m2, v1, v2, p1, p2, pt, ke1, ke2, ket, rs);
+  console.log(m1,m2,mt,pt,vcom)
+}
+  </script>
 </body>
 </html>
+ 
