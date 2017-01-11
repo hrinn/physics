@@ -124,25 +124,25 @@ function calc() {
   p2 = m2 * v2;
   pt = p1 + p2;
 
-  $("#p1").text(p1 + " kg·m/s");
-  $("#p2").text(p2 + " kg·m/s");
-  $("#pt").text(pt + " kg·m/s");
-  $("#pft").text(pt + " kg·m/s")
+  $("#p1").text(p1.toFixed(2) + " kg·m/s");
+  $("#p2").text(p2.toFixed(2) + " kg·m/s");
+  $("#pt").text(pt.toFixed(2) + " kg·m/s");
+  $("#pft").text(pt.toFixed(2) + " kg·m/s")
   
   ke1 = (m1/2) * Math.pow(v1,2);
   ke2 = (m2/2) * Math.pow(v2,2);
   ket = ke1 + ke2;
   
-  $("#ke1").text(ke1 + " J");
-  $("#ke2").text(ke2 + " J");
-  $("#ket").text(ket + " J");
+  $("#ke1").text(ke1.toFixed(2) + " J");
+  $("#ke2").text(ke2.toFixed(2) + " J");
+  $("#ket").text(ket.toFixed(2) + " J");
   
   rs = Math.abs(v2-v1)
   
-  $("#rs").text(rs + " m/s");
+  $("#rs").text(rs.toFixed(2) + " m/s");
   
-  $("#m1a").text("M1 = " + m1 + " kg");
-  $("#m2a").text("M2 = " + m2 + " kg");
+  $("#m1a").text("M1 = " + m1.toFixed(2) + " kg");
+  $("#m2a").text("M2 = " + m2.toFixed(2) + " kg");
   
   mt = m1+m2;
   vcom = pt/mt;
@@ -152,26 +152,26 @@ function calc() {
   vf1 = (((e*m2)*(v2-v1))+(m1*v1)+(m2*v2))/(mt);
   vf2 = (((e*m1)*(v1-v2))+(m1*v1)+(m2*v2))/(mt);
   
-  $("#vf1").text(vf1);
-  $("#vf2").text(vf2);
+  $("#vf1").text(vf1.toFixed(2));
+  $("#vf2").text(vf2.toFixed(2));
   
   pf1 = m1 * vf1;
   pf2 = m2 * vf2;
 
-  $("#pf1").text(pf1 + " kg·m/s");
-  $("#pf2").text(pf2 + " kg·m/s");
+  $("#pf1").text(pf1.toFixed(2) + " kg·m/s");
+  $("#pf2").text(pf2.toFixed(2) + " kg·m/s");
   
   kef1 = (m1/2) * Math.pow(vf1,2);
   kef2 = (m2/2) * Math.pow(vf2,2);
   keft = kef1 + kef2;
   
-  $("#kef1").text(kef1 + " J");
-  $("#kef2").text(kef2 + " J");
-  $("#keft").text(keft + " J");
+  $("#kef1").text(kef1.toFixed(2) + " J");
+  $("#kef2").text(kef2.toFixed(2) + " J");
+  $("#keft").text(keft.toFixed(2) + " J");
   
   rsf = Math.abs(vf2-vf1)
   
-  $("#rsf").text(rsf + " m/s");
+  $("#rsf").text(rsf.toFixed(2) + " m/s");
   
   console.log(e, m1, m2, v1, v2, p1, p2, pt, ke1, ke2, ket, rs);
   console.log(m1,m2,mt,pt,vcom)
