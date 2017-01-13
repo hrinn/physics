@@ -3,6 +3,7 @@
 
 <head>
   <title>Collision Calculator</title>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
       <style>
       body {
   margin: 15px;
@@ -15,13 +16,19 @@
   background: lightgray;
 }
 
+.top-buffer { 
+  margin-top:20px;
+}
+
 #beforeTable {
   background: white;
-  float: left;
-  margin-right: 30px;
 }
 
 #afterTable {
+  background: white;
+}
+
+#com {
   background: white;
 }
 
@@ -31,11 +38,20 @@
     </style>
 </head>
 <body translate="no" >
-  <div>
-  <div id="tables">
-    <table border="1" cellpadding="5" cellspacing="5" id="beforeTable">
+  <div id="tables" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1">
+    <b> e = </b><input id="e" size="2" />
+    </div>
+    <div class="col-sm-1">
+    <button id="calculate">Calculate</button>
+    </div>
+  </div>
+    <div class="row top-buffer">
+        <div class="col-sm-5">
+    <table class="table table-bordered" id="beforeTable">
       <tr>
-        <th>Ground Before</th>
+        <th>Before <br> Ground <br> V = 0 m/s</th>
         <th>Object 1</br>
           M1 = <input id="m1" size=2/> </th>
         <th>Object 2</br>
@@ -67,10 +83,11 @@
         <td id="rs"></td>
       </tr>
     </table>
-
-    <table border="1" cellpadding="5" cellspacing="5" id="afterTable">
+    </div>
+    <div class="col-sm-5">
+    <table class="table table-bordered" id="afterTable">
       <tr>
-        <th>Ground After</th>
+        <th>After <br> Ground <br> V = 0 m/s</th>
         <th id="m1a">Object 1</th>
         <th id="m2a">Object 2</th>
         <th>Total</th>
@@ -100,14 +117,33 @@
         <td id="rsf"></td>
       </tr>
     </table>
+    </div>
+    <div class="col-sm-2">
+    <table class="table table-bordered" id="com">
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>V<sub>CM</sub></td>
+        <td id="vcom"></td>
+      </tr>
+      <tr>
+        <td>KE<sub>total</sub></td>
+        <td id="ketotal"></td>
+      </tr>
+      <tr>
+        <td>KE<sub>CM</sub></td>
+        <td id="kecom"></td>
+      </tr>
+        <td>KE<sub>conv</sub></td>
+        <td id="keconv"></td>
+      </tr>
+    </table>
+    </div>
+    </div>
   </div>
-  <br>
-  <b> e = </b><input id="e" size="2" />
-  <br>
-<b>V<sub>CoM</sub> = </b> <span id="vcom"></span>
-  <br>
-  <button id="calculate">Calculate</button>
-</div>
+  
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script>
     console.clear();
@@ -136,6 +172,7 @@ function calc() {
   $("#ke1").text(ke1.toFixed(2) + " J");
   $("#ke2").text(ke2.toFixed(2) + " J");
   $("#ket").text(ket.toFixed(2) + " J");
+  $("#ketotal").text(ket.toFixed(2) + " J");
   
   rs = Math.abs(v2-v1)
   
@@ -172,9 +209,17 @@ function calc() {
   rsf = Math.abs(vf2-vf1)
   
   $("#rsf").text(rsf.toFixed(2) + " m/s");
+
+  kecom = (mt/2)*Math.pow(vcom,2)
+
+  $("#kecom").text(kecom.toFixed(2) + " J")
+
+  keconv = ket - kecom;
+
+  $("#keconv").text(keconv.toFixed(2) + " J")
   
   console.log(e, m1, m2, v1, v2, p1, p2, pt, ke1, ke2, ket, rs);
-  console.log(m1,m2,mt,pt,vcom)
+  console.log(m1, m2, mt, vcom, kecom);
 }
   </script>
 </body>
