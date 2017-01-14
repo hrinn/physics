@@ -2,225 +2,348 @@
 <html >
 
 <head>
+  <meta charset="utf-8">
   <title>Collision Calculator</title>
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-      <style>
-      body {
-  margin: 15px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 150%;
-  background: lightblue;
-}
+  <style>
+    body {
+      margin: 15px;
+      background: lightblue;
+    }
 
-.blank{
-  background: lightgray;
-}
+    .blank{
+      background: lightgray;
+    }
 
-.top-buffer { 
-  margin-top:20px;
-}
+    .top-buffer { 
+      margin-top:20px;
+    }
 
-#beforeTable {
-  background: white;
-}
+    .white {
+      background: white;
+    }
 
-#afterTable {
-  background: white;
-}
+  }
 
-#com {
-  background: white;
-}
-
-#m1a {
-  height: 46.5px;
-}
-    </style>
+  #m1a {
+    height: 46.5px;
+  }
+</style>
 </head>
 <body translate="no" >
   <div id="tables" class="container-fluid">
-  <div class="row">
-    <div class="col-sm-1">
-    <b> e = </b><input id="e" size="2" />
+    <div class="row">
+      <div class="col-sm-1">
+        <b> e = </b><input id="e" size="2" />
+      </div>
+      <div class="col-sm-1">
+        <button id="calculate" class="btn btn-default btn-sm">Calculate</button>
+      </div>
     </div>
-    <div class="col-sm-1">
-    <button id="calculate">Calculate</button>
-    </div>
-  </div>
     <div class="row top-buffer">
-        <div class="col-sm-5">
-    <table class="table table-bordered" id="beforeTable">
-      <tr>
-        <th>Before <br> Ground <br> V = 0 m/s</th>
-        <th>Object 1</br>
-          M1 = <input id="m1" size=2/> </th>
-        <th>Object 2</br>
-          M2 = <input id="m2" size=2/></th>
-        <th>Total</th>
-      </tr>
-      <tr>
-        <td>Velocity</td>
-        <td><b>V1 = </b><input id="v1" size=2/></td>
-        <td><b>V2 = </b><input id="v2" size=2/></td>
-        <td class="blank"></td>
-      </tr>
-      <tr>
-        <td>Momentum</td>
-        <td id="p1"></td>
-        <td id="p2"></td>
-        <td id="pt"></td>
-      </tr>
-      <tr>
-        <td>Kinetic Energy</td>
-        <td id="ke1"></td>
-        <td id="ke2"></td>
-        <td id="ket"></td>
-      </tr>
-      <tr>
-        <td>Relative Speed</td>
-        <td class="blank"></td>
-        <td class="blank"></td>
-        <td id="rs"></td>
-      </tr>
-    </table>
+      <div class="col-sm-4">
+        <table class="table table-bordered white"> <!--Before Ground-->
+          <tr>
+            <th>Before <br> Ground <br> V = 0 m/s</th>
+            <th>Object 1</br>
+              M1 = <input id="m1" size=2/> </th>
+              <th>Object 2</br>
+                M2 = <input id="m2" size=2/></th>
+                <th>Total</th>
+              </tr>
+              <tr>
+                <td>Velocity</td>
+                <td><b>V1 = </b><input id="v1" size=2/></td>
+                <td><b>V2 = </b><input id="v2" size=2/></td>
+                <td class="blank"></td>
+              </tr>
+              <tr>
+                <td>Momentum</td>
+                <td id="p1"></td>
+                <td id="p2"></td>
+                <td id="pt"></td>
+              </tr>
+              <tr>
+                <td>Kinetic Energy</td>
+                <td id="ke1"></td>
+                <td id="ke2"></td>
+                <td id="ket"></td>
+              </tr>
+              <tr>
+                <td>Relative Speed</td>
+                <td class="blank"></td>
+                <td class="blank"></td>
+                <td id="rs"></td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-sm-4">
+            <table class="table table-bordered white"> <!--After Ground-->
+              <tr>
+                <th>After <br> Ground <br> V = 0 m/s</th>
+                <th id="m1a">Object 1</th>
+                <th id="m2a">Object 2</th>
+                <th>Total</th>
+              </tr>
+              <tr>
+                <td>Velocity</td>
+                <td id="vf1"></td>
+                <td id="vf2"></td>
+                <td class="blank"></td>
+              </tr>
+              <tr>
+                <td>Momentum</td>
+                <td id="pf1"></td>
+                <td id="pf2"></td>
+                <td id="pft"></td>
+              </tr>
+              <tr>
+                <td>Kinetic Energy</td>
+                <td id="kef1"></td>
+                <td id="kef2"></td>
+                <td id="keft"></td>
+              </tr>
+              <tr>
+                <td>Relative Speed</td>
+                <td class="blank"></td>
+                <td class="blank"></td>
+                <td id="rsf"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row top-buffer">
+          <div class="col-sm-4">
+            <table class="table table-bordered white"> <!--Before Vcom-->
+              <tr>
+                <th>Before <br> Center of Mass <br> V = <span id="vcomt"></span></th>
+                <th id="m1bv">Object 1</th>
+                <th id="m2bv">Object 2</th>
+                <th>Total</th>
+              </tr>
+              <tr>
+                <td>Velocity</td>
+                <td id="v1com"></td>
+                <td id="v2com"></td>
+                <td class="blank"></td>
+              </tr>
+              <tr>
+                <td>Momentum</td>
+                <td id="p1com"></td>
+                <td id="p2com"></td>
+                <td id="ptcom"></td>
+              </tr>
+              <tr>
+                <td>Kinetic Energy</td>
+                <td id="ke1com"></td>
+                <td id="ke2com"></td>
+                <td id="ketcom"></td>
+              </tr>
+              <tr>
+                <td>Relative Speed</td>
+                <td class="blank"></td>
+                <td class="blank"></td>
+                <td id="rscom"></td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-sm-4">
+            <table class="table table-bordered white"> <!--After Vcom-->
+              <tr>
+                <th>After <br> Center of Mass <br> V = <span id="vcomt2"></span></th>
+                <th id="m1av">Object 1</th>
+                <th id="m2av">Object 2</th>
+                <th>Total</th>
+              </tr>
+              <tr>
+                <td>Velocity</td>
+                <td id="vf1com"></td>
+                <td id="vf2com"></td>
+                <td class="blank"></td>
+              </tr>
+              <tr>
+                <td>Momentum</td>
+                <td id="pf1com"></td>
+                <td id="pf2com"></td>
+                <td id="pftcom"></td>
+              </tr>
+              <tr>
+                <td>Kinetic Energy</td>
+                <td id="kef1com"></td>
+                <td id="kef2com"></td>
+                <td id="keftcom"></td>
+              </tr>
+              <tr>
+                <td>Relative Speed</td>
+                <td class="blank"></td>
+                <td class="blank"></td>
+                <td id="rsfcom"></td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-sm-2">
+            <table class="table table-bordered white"> <!--CM, V/KE-->
+              <tr>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+              <tr>
+                <td>V<sub>CM</sub></td>
+                <td id="vcom"></td>
+              </tr>
+              <tr>
+                <td>KE<sub>total</sub></td>
+                <td id="ketotal"></td>
+              </tr>
+              <tr>
+                <td>KE<sub>CM</sub></td>
+                <td id="kecom"></td>
+              </tr>
+              <td>KE<sub>conv</sub></td>
+              <td id="keconv"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
     </div>
-    <div class="col-sm-5">
-    <table class="table table-bordered" id="afterTable">
-      <tr>
-        <th>After <br> Ground <br> V = 0 m/s</th>
-        <th id="m1a">Object 1</th>
-        <th id="m2a">Object 2</th>
-        <th>Total</th>
-      </tr>
-      <tr>
-        <td>Velocity</td>
-        <td id="vf1"></td>
-        <td id="vf2"></td>
-        <td class="blank"></td>
-      </tr>
-      <tr>
-        <td>Momentum</td>
-        <td id="pf1"></td>
-        <td id="pf2"></td>
-        <td id="pft"></td>
-      </tr>
-      <tr>
-        <td>Kinetic Energy</td>
-        <td id="kef1"></td>
-        <td id="kef2"></td>
-        <td id="keft"></td>
-      </tr>
-      <tr>
-        <td>Relative Speed</td>
-        <td class="blank"></td>
-        <td class="blank"></td>
-        <td id="rsf"></td>
-      </tr>
-    </table>
-    </div>
-    <div class="col-sm-2">
-    <table class="table table-bordered" id="com">
-      <tr>
-        <th>Property</th>
-        <th>Value</th>
-      </tr>
-      <tr>
-        <td>V<sub>CM</sub></td>
-        <td id="vcom"></td>
-      </tr>
-      <tr>
-        <td>KE<sub>total</sub></td>
-        <td id="ketotal"></td>
-      </tr>
-      <tr>
-        <td>KE<sub>CM</sub></td>
-        <td id="kecom"></td>
-      </tr>
-        <td>KE<sub>conv</sub></td>
-        <td id="keconv"></td>
-      </tr>
-    </table>
-    </div>
-    </div>
-  </div>
-  
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script>
-    console.clear();
-$("#calculate").click(calc);
+      console.clear();
+      $("#calculate").click(calc);
 
-function calc() {
-  var e = $("#e").val() * 1;
-  var m1 = $("#m1").val() * 1;
-  var m2 = $("#m2").val() * 1;
-  var v1 = $("#v1").val() * 1;
-  var v2 = $("#v2").val() * 1;
+      function calc() {
+        var e = $("#e").val() * 1;
+        var m1 = $("#m1").val() * 1;
+        var m2 = $("#m2").val() * 1;
+        var v1 = $("#v1").val() * 1;
+        var v2 = $("#v2").val() * 1;
 
-  p1 = m1 * v1;
-  p2 = m2 * v2;
-  pt = p1 + p2;
+        p1 = m1 * v1;
+        p2 = m2 * v2;
+        pt = p1 + p2;
 
-  $("#p1").text(p1.toFixed(2) + " kg·m/s");
-  $("#p2").text(p2.toFixed(2) + " kg·m/s");
-  $("#pt").text(pt.toFixed(2) + " kg·m/s");
-  $("#pft").text(pt.toFixed(2) + " kg·m/s")
-  
-  ke1 = (m1/2) * Math.pow(v1,2);
-  ke2 = (m2/2) * Math.pow(v2,2);
-  ket = ke1 + ke2;
-  
-  $("#ke1").text(ke1.toFixed(2) + " J");
-  $("#ke2").text(ke2.toFixed(2) + " J");
-  $("#ket").text(ket.toFixed(2) + " J");
-  $("#ketotal").text(ket.toFixed(2) + " J");
-  
-  rs = Math.abs(v2-v1)
-  
-  $("#rs").text(rs.toFixed(2) + " m/s");
-  
-  $("#m1a").text("M1 = " + m1.toFixed(2) + " kg");
-  $("#m2a").text("M2 = " + m2.toFixed(2) + " kg");
-  
-  mt = m1+m2;
-  vcom = pt/mt;
-  
-  $("#vcom").text(vcom.toFixed(2) + " m/s");
-  
-  vf1 = (((e*m2)*(v2-v1))+(m1*v1)+(m2*v2))/(mt);
-  vf2 = (((e*m1)*(v1-v2))+(m1*v1)+(m2*v2))/(mt);
-  
-  $("#vf1").text(vf1.toFixed(2) + " m/s");
-  $("#vf2").text(vf2.toFixed(2) + " m/s");
-  
-  pf1 = m1 * vf1;
-  pf2 = m2 * vf2;
+        $("#p1").text(p1.toFixed(2) + " kg·m/s");
+        $("#p2").text(p2.toFixed(2) + " kg·m/s");
+        $("#pt").text(pt.toFixed(2) + " kg·m/s");
 
-  $("#pf1").text(pf1.toFixed(2) + " kg·m/s");
-  $("#pf2").text(pf2.toFixed(2) + " kg·m/s");
-  
-  kef1 = (m1/2) * Math.pow(vf1,2);
-  kef2 = (m2/2) * Math.pow(vf2,2);
-  keft = kef1 + kef2;
-  
-  $("#kef1").text(kef1.toFixed(2) + " J");
-  $("#kef2").text(kef2.toFixed(2) + " J");
-  $("#keft").text(keft.toFixed(2) + " J");
-  
-  rsf = Math.abs(vf2-vf1)
-  
-  $("#rsf").text(rsf.toFixed(2) + " m/s");
+        ke1 = (m1/2) * Math.pow(v1,2);
+        ke2 = (m2/2) * Math.pow(v2,2);
+        ket = ke1 + ke2;
 
-  kecom = (mt/2)*Math.pow(vcom,2)
+        $("#ke1").text(ke1.toFixed(2) + " J");
+        $("#ke2").text(ke2.toFixed(2) + " J");
+        $("#ket").text(ket.toFixed(2) + " J");
+        $("#ketotal").text(ket.toFixed(2) + " J");
 
-  $("#kecom").text(kecom.toFixed(2) + " J")
+        rs = Math.abs(v2-v1)
 
-  keconv = ket - kecom;
+        $("#rs").text(rs.toFixed(2) + " m/s");
 
-  $("#keconv").text(keconv.toFixed(2) + " J")
-  
-  console.log(e, m1, m2, v1, v2, p1, p2, pt, ke1, ke2, ket, rs);
-  console.log(m1, m2, mt, vcom, kecom);
-}
-  </script>
-</body>
-</html>
+        $("#m1a").text("M1 = " + m1.toFixed(2) + " kg");
+        $("#m2a").text("M2 = " + m2.toFixed(2) + " kg");
+        $("#m1bv").text("M1 = " + m1.toFixed(2) + " kg");
+        $("#m2bv").text("M2 = " + m2.toFixed(2) + " kg");
+        $("#m1av").text("M1 = " + m1.toFixed(2) + " kg");
+        $("#m2av").text("M2 = " + m2.toFixed(2) + " kg");
+
+        mt = m1+m2;
+        vcom = pt/mt;
+
+        $("#vcom").text(vcom.toFixed(2) + " m/s");
+        $("#vcomt").text(vcom.toFixed(2)+ " m/s");
+        $("#vcomt2").text(vcom.toFixed(2)+ " m/s");
+
+        vf1 = (((e*m2)*(v2-v1))+(m1*v1)+(m2*v2))/(mt);
+        vf2 = (((e*m1)*(v1-v2))+(m1*v1)+(m2*v2))/(mt);
+
+        $("#vf1").text(vf1.toFixed(2) + " m/s");
+        $("#vf2").text(vf2.toFixed(2) + " m/s");
+
+        pf1 = m1 * vf1;
+        pf2 = m2 * vf2;
+        pft = pf1+pf2;
+
+        $("#pf1").text(pf1.toFixed(2) + " kg·m/s");
+        $("#pf2").text(pf2.toFixed(2) + " kg·m/s");
+        $("#pft").text(pft.toFixed(2) + " kg·m/s")
+
+        kef1 = (m1/2) * Math.pow(vf1,2);
+        kef2 = (m2/2) * Math.pow(vf2,2);
+        keft = kef1 + kef2;
+
+        $("#kef1").text(kef1.toFixed(2) + " J");
+        $("#kef2").text(kef2.toFixed(2) + " J");
+        $("#keft").text(keft.toFixed(2) + " J");
+
+        rsf = Math.abs(vf2-vf1)
+
+        $("#rsf").text(rsf.toFixed(2) + " m/s");
+
+        kecom = (mt/2)*Math.pow(vcom,2)
+
+        $("#kecom").text(kecom.toFixed(2) + " J");
+
+        keconv = ket - kecom;
+
+        $("#keconv").text(keconv.toFixed(2) + " J");
+
+        v1com = v1-vcom;
+        v2com = v2-vcom;
+
+        $("#v1com").text(v1com.toFixed(2) + " m/s");
+        $("#v2com").text(v2com.toFixed(2) + " m/s");
+
+        p1com = m1*v1com;
+        p2com = m2 *v2com;
+        ptcom = p1com + p2com;
+
+        $("#p1com").text(p1com.toFixed(2) + " kg·m/s");
+        $("#p2com").text(p2com.toFixed(2) + " kg·m/s");
+        $("#ptcom").text(ptcom.toFixed(2) + " kg·m/s");
+
+        ke1com = (m1/2) * Math.pow(v1com,2);
+        ke2com = (m2/2) * Math.pow(v2com,2);
+        ketcom = ke1com + ke2com;
+
+        $("#ke1com").text(ke1com.toFixed(2) + " J");
+        $("#ke2com").text(ke2com.toFixed(2) + " J");
+        $("#ketcom").text(ketcom.toFixed(2) + " J");
+
+        rscom = Math.abs(v2com-v1com);
+
+        $("#rscom").text(rscom.toFixed(2) + " m/s");
+
+        vf1com = (((e*m2)*(v2com-v1com))+(m1*v1com)+(m2*v2com))/(mt);
+        vf2com = (((e*m1)*(v1com-v2com))+(m1*v1com)+(m2*v2com))/(mt);
+
+        $("#vf1com").text(vf1com.toFixed(2) + "m/s");
+        $("#vf2com").text(vf2com.toFixed(2) + "m/s");
+
+        pf1com = vf1com * m1;
+        pf2com = vf2com * m2;
+        pftcom = pf1com + pf2com;
+
+        $("#pf1com").text(pf1com.toFixed(2) + " kg·m/s");
+        $("#pf2com").text(pf2com.toFixed(2) + " kg·m/s");
+        $("#pftcom").text(pftcom.toFixed(2) + " kg·m/s");
+
+        kef1com = (m1/2) * Math.pow(vf1com,2);
+        kef2com = (m2/2) * Math.pow(vf2com,2);
+        keftcom = kef1com + kef2com;
+
+        $("#kef1com").text(kef1com.toFixed(2) + " J");
+        $("#kef2com").text(kef2com.toFixed(2) + " J");
+        $("#keftcom").text(keftcom.toFixed(2) + " J");
+
+        rsfcom = Math.abs(vf2com-vf1com);
+
+        $("#rsfcom").text(rsfcom.toFixed(2) + " m/s");
+
+        console.log(e, m1, m2, v1, v2, p1, p2, pt, ke1, ke2, ket, rs);
+        console.log(m1, m2, mt, vcom, kecom);
+      }
+    </script>
+  </body>
+  </html>
